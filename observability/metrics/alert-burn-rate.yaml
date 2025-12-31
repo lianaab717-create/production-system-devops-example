@@ -1,0 +1,14 @@
+groups:
+- name: slo-alerts
+  rules:
+  - alert: HighErrorBurnRate
+    expr: rate(http_requests_total{status=~"5.."}[5m])
+          /
+          rate(http_requests_total[5m])
+          > 0.05
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High error rate burn detected"
+      description: "More than 5% of requests failed in the last 5 minutes."

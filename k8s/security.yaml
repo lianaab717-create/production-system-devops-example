@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: api-security-demo
+spec:
+  containers:
+  - name: api
+    image: your-dockerhub-username/api:latest
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 3000
+      runAsNonRoot: true
+      capabilities:
+        drop:
+        - ALL
+      readOnlyRootFilesystem: true

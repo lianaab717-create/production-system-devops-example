@@ -1,20 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-api
+  name: api-deployment
+  labels:
+    app: api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: example-api
+      app: api
   template:
     metadata:
       labels:
-        app: example-api
+        app: api
     spec:
       containers:
       - name: api
-        image: python:3.11-slim
-        command: ["python", "app/api.py"]
+        image: your-dockerhub-username/api:latest
         ports:
         - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 20

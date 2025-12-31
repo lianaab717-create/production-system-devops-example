@@ -1,0 +1,27 @@
+{
+  "dashboard": {
+    "title": "API SLO Dashboard",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "API Request Duration (p95)",
+        "targets": [
+          {
+            "expr": "api_request_duration_p95",
+            "legendFormat": "p95 latency"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "API Error Rate",
+        "targets": [
+          {
+            "expr": "api_request_errors_rate",
+            "legendFormat": "5xx errors"
+          }
+        ]
+      }
+    ]
+  }
+}
